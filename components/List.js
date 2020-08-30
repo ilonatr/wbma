@@ -1,9 +1,43 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
 import ListItem from './ListItem';
 
-const mediaArray = [
+
+const url = 'https://raw.githubusercontent.com/mattpe/wbma/master/docs/assets/test.json';
+
+const List = () => {
+  const [mediaArray, setMediaArray] = useState([]);
+
+  const loadMedia = async () => {
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      setMediaArray(json);
+    } catch (error) {
+      console.log('loadMedia error', error);
+    }
+
+    // console.log('mediaArray', mediaArray);
+  };
+
+  useEffect(() => {
+    loadMedia();
+  }, []);
+
+  return (
+    <FlatList
+      data={mediaArray}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({item}) => <ListItem singleMedia={item} />}
+    />
+  );
+};
+
+export default List;
+
+
+/* const mediaArray = [
   {
     'key': '0',
     'title': 'Title 1',
@@ -31,15 +65,4 @@ const mediaArray = [
     },
     'filename': 'http://placekitten.com/2039/1920',
   },
-];
-
-const List = () => {
-  return (
-    <FlatList
-      data={mediaArray}
-      renderItem={({item}) => <ListItem singleMedia={item} />}
-    />
-  );
-};
-
-export default List;
+];*/
