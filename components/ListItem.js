@@ -1,59 +1,46 @@
 /* eslint-disable max-len */
 import React from 'react';
-import {StyleSheet, Text, SafeAreaView, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import PropTypes from 'prop-types';
-
 
 const ListItem = (props) => {
   return (
-    <TouchableOpacity style={styles.row}>
-      <Image
-        style={styles.image}
-        source={{uri: props.singleMedia.thumbnails.w160}}
-      />
-      <SafeAreaView style={styles.text}>
-        <Text style={styles.title}>{props.singleMedia.title}</Text>
-        <Text>{props.singleMedia.description}</Text>
-      </SafeAreaView>
+    <TouchableOpacity
+      style={styles.list_items}>
+      <View style={styles.items_sidetoside}>
+        <Image style={{width: 150, height: 150, borderRadius: 100}}
+          source={{uri: props.singleMedia.thumbnails.w160}}
+        />
+        <View style={styles.text}>
+          <Text
+            style={styles.header}>{props.singleMedia.title}</Text>
+          <Text
+            style={{textAlign: 'left', width: 180}}>{props.singleMedia.description}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 10,
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  list_items: {
+    backgroundColor: '#D4D4D4',
+    padding: 15,
+    margin: 3,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderColor: 'grey',
+    borderRadius: 10,
   },
-  row: {
-    flex: 1,
-    maxWidth: '100%',
-    height: 300,
+  items_sidetoside: {
     flexDirection: 'row',
-    backgroundColor: 'lightgrey',
-    marginBottom: 5,
   },
-  image: {
-    width: '50%',
-    marginTop: 20,
-    marginBottom: 20,
-    marginRight: 20,
-  },
-  text: {
-    maxWidth: '50%',
-    marginRight: 10,
-    marginTop: 20,
-    marginBottom: 20,
-    backgroundColor: 'lightgrey',
-    paddingRight: 20,
-  },
-  title: {
-    fontWeight: 'bold',
+  header: {
     fontSize: 20,
+    fontWeight: 'bold',
+    paddingBottom: 20,
+    color: '#E394CE',
   },
-
 });
 
 ListItem.propTypes = {
