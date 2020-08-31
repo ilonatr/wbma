@@ -17,7 +17,7 @@ const ListItem = (props) => {
           <Text
             style={styles.title}>{props.singleMedia.title}</Text>
           <Text
-            style={{textAlign: 'left', width: 180}}>{props.singleMedia.description}</Text>
+            style={{textAlign: 'left', width: 500, flexWrap: 'wrap'}}>{props.singleMedia.description}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -26,13 +26,13 @@ const ListItem = (props) => {
 
 const styles = StyleSheet.create({
   list_items: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#F5F5DC',
     padding: 20,
     margin: 10,
     borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: 'grey',
-    borderRadius: 20,
+    borderColor: '#964B00',
+    borderRadius: 15,
   },
   items_sidetoside: {
     flexDirection: 'row',
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     paddingBottom: 10,
-    color: 'brown',
+    color: '#964B00',
   },
 });
 

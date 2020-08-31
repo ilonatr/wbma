@@ -8,15 +8,15 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <View>
         <Image
-          style={{width: 300, height: 200, justifyContent: 'center'}}
+          style={{width: 340, height: 200, justifyContent: 'center'}}
           resizeMode='contain'
-          source={{uri: 'http://placekitten.com/400/201'}}
+          source={{uri: 'http://placekitten.com/400/202'}}
         />
         <Text style={styles.header_text}>
           Homeless cats
         </Text>
       </View>
-      <StatusBar style={{backgroundColor: 'lightgreen'}}></StatusBar>
+      <StatusBar style={{backgroundColor: 'cream'}}></StatusBar>
       <List />
       <StatusBar style="auto" />
     </SafeAreaView>
@@ -27,10 +27,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    margin: 20,
   },
   list_items: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#fff',
     padding: 15,
     margin: 3,
   },
@@ -39,10 +38,10 @@ const styles = StyleSheet.create({
   },
   header_text: {
     fontSize: 20,
-    color: '#fff',
+    color: '#964B00',
     position: 'absolute',
-    top: 20,
-    left: 20,
+    top: 40,
+    backgroundColor: '#F5F5DC',
   },
 });
 
