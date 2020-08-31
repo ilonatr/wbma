@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#964B00',
     borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {width: 5, height: 5},
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 2,
   },
   items_sidetoside: {
     flexDirection: 'row',
