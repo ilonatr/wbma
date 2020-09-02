@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {StyleSheet, SafeAreaView, View, Text, Image} from 'react-native';
@@ -8,16 +9,6 @@ const Home = (props) => {
   const {navigation} = props;
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Image
-          style={{width: 340, height: 200, justifyContent: 'center'}}
-          resizeMode='contain'
-          source={{uri: 'http://placekitten.com/400/202'}}
-        />
-        <Text style={styles.header_text}>
-          Homeless cats
-        </Text>
-      </View>
       <StatusBar style={{backgroundColor: 'cream'}}></StatusBar>
       <List navigation={navigation}></List>
       <StatusBar style="auto" />
