@@ -2,8 +2,10 @@ import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {StyleSheet, SafeAreaView, View, Text, Image} from 'react-native';
 import List from '../components/List';
+import PropTypes from 'prop-types';
 
-const Home = () => {
+const Home = (props) => {
+  const {navigation} = props;
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -17,7 +19,7 @@ const Home = () => {
         </Text>
       </View>
       <StatusBar style={{backgroundColor: 'cream'}}></StatusBar>
-      <List />
+      <List navigation={navigation}></List>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
@@ -44,5 +46,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5DC',
   },
 });
+
+Home.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default Home;

@@ -5,19 +5,22 @@ import PropTypes from 'prop-types';
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-const ListItem = (props) => {
+const ListItem = ({navigation, singleMedia}) => {
   return (
-    <TouchableOpacity
-      style={styles.list_items}>
+    <TouchableOpacity style={styles.list_items}
+      onPress={
+        () => {
+          navigation.navigate('Single', {file: singleMedia});
+        }
+      }>
       <View style={styles.items_sidetoside}>
-        <Image style={{width: 150, height: 150, borderRadius: 100, marginRight: 20}}
-          source={{uri: mediaUrl + props.singleMedia.thumbnails.w160}}
+        <Image style={styles.image}
+          source={{uri: mediaUrl + singleMedia.thumbnails.w160}}
         />
         <View style={styles.text}>
           <Text
-            style={styles.title}>{props.singleMedia.title}</Text>
-          <Text
-            style={{textAlign: 'left', width: 500, flexWrap: 'wrap'}}>{props.singleMedia.description}</Text>
+            style={styles.title}>{singleMedia.title}</Text>
+          <Text>{singleMedia.description}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -43,15 +46,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     paddingBottom: 10,
     color: '#964B00',
+  },
+  text: {
+    flex: 2,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    marginRight: 20,
   },
 });
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object,
+  navigation: PropTypes.object,
 };
 
 export default ListItem;

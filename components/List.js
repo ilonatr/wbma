@@ -2,11 +2,11 @@
 import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
 import ListItem from './ListItem';
-
+import PropTypes from 'prop-types';
 
 const url = 'http://media.mw.metropolia.fi/wbma/';
 
-const List = () => {
+const List = (props) => {
   const [mediaArray, setMediaArray] = useState([]);
 
   const loadMedia = async (limit = 10) => {
@@ -35,12 +35,16 @@ const List = () => {
     <FlatList
       data={mediaArray}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({item}) => <ListItem singleMedia={item} />}
+      renderItem={({item}) => <ListItem navigation={props.navigation} singleMedia={item} />}
     />
   );
 };
 
 export default List;
+
+List.propTypes = {
+  navigation: PropTypes.object,
+};
 
 /* const mediaArray = [
   {
