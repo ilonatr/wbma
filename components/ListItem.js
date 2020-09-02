@@ -10,14 +10,14 @@ const ListItem = (props) => {
     <TouchableOpacity
       style={styles.list_items}>
       <View style={styles.items_sidetoside}>
-        <Image style={{width: 150, height: 150, borderRadius: 100, marginRight: 20}}
+        <Image style={styles.image}
           source={{uri: mediaUrl + props.singleMedia.thumbnails.w160}}
         />
         <View style={styles.text}>
           <Text
             style={styles.title}>{props.singleMedia.title}</Text>
           <Text
-            style={{textAlign: 'left', width: 500, flexWrap: 'wrap'}}>{props.singleMedia.description}</Text>
+            style={styles.text}>{props.singleMedia.description}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -47,6 +47,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 10,
     color: '#964B00',
+  },
+  text: {
+    flex: 2,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    marginRight: 20,
   },
 });
 
