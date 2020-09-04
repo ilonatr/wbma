@@ -4,21 +4,28 @@ import {StyleSheet, View, Text, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import {AuthContext} from '../contexts/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
-import {postLogIn, checkToken, register} from '../hooks/APIhooks';
 import FormTextInput from './FormTextInput';
-import {useSignUpForm, handleInputChange} from '../hooks/RegisterHooks';
+import useSignUpForm from '../hooks/RegisterHooks';
+import {postRegistration, postLogIn} from '../hooks/APIhooks';
 
 const RegisterForm = ({navigation}) => {
+  const {setUser, setIsLoggedIn} = useContext(AuthContext);
+
   const doRegister = async () => {
     try {
-      const serverResponse = await register(inputs); // remember imports
-      console.log(serverResponse);
+      const result = await postRegistration(inputs);
+      console.log('new user created:', result);
+      const userData = await postLogIn(inputs);
+      await AsyncStorage.setItem('userToken', userData.token);
+      setIsLoggedIn(true);
+      setUser(userData);
     } catch (e) {
-      console.log(e.message);
+      console.log('registeration error', e.message);
     }
   };
 
   const {inputs, handleInputChange} = useSignUpForm();
+
   return (
     <View>
       <FormTextInput
@@ -42,8 +49,10 @@ const RegisterForm = ({navigation}) => {
         placeholder="full name"
         onChangeText={(txt) => handleInputChange('full_name', txt)}
       />
+      <Button title="Register!" onPress={doRegister} />
     </View>
   );
+
 };
 
 RegisterForm.propTypes = {

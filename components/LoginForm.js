@@ -4,13 +4,12 @@ import {StyleSheet, View, Text, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import {AuthContext, AuthProvider} from '../contexts/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
-import {postLogIn, checkToken} from '../hooks/APIhooks';
+import {postLogIn} from '../hooks/APIhooks';
 import FormTextInput from './FormTextInput';
-import handleInputChange from '../hooks/LoginHooks';
 import useLoginForm from '../hooks/LoginHooks';
 
 const LoginForm = ({navigation}) => {
-  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
+  const {setIsLoggedIn} = useContext(AuthContext);
 
   const doLogin = async () => {
     try {
