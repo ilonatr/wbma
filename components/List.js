@@ -1,18 +1,22 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
 import ListItem from './ListItem';
 import PropTypes from 'prop-types';
-import {useLoadMedia} from '../hooks/APIHooks';
+import {useLoadMedia} from '../hooks/APIhooks';
 
-const List = (navigation) => {
+
+const List = ({navigation}) => {
   const mediaArray = useLoadMedia();
 
   return (
     <FlatList
       data={mediaArray}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({item}) => <ListItem navigation={navigation} singleMedia={item} />}
+      renderItem={({item}) =>
+        <ListItem singleMedia={item} navigation={navigation} />
+      }
     />
   );
 };

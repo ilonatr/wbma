@@ -5,16 +5,19 @@ import PropTypes from 'prop-types';
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
 const Single = ({route}) => {
-  console.log('route', route);
   const {file} = route.params;
+  console.log('kuva', mediaUrl + file.filename);
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>{file.title}</Text>
       <View style={styles.imagebox}>
-        <Image style={styles.image} source={{uri: mediaUrl + file.filename}} />
-        <Text style={styles.title} >{file.title}</Text>
-        <Text>{file.description}</Text>
+        <Image
+          style={styles.image}
+          source={{uri: mediaUrl + file.filename}}
+        />
+        <Text style={styles.description}>{file.description}</Text>
       </View>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 };
 
@@ -22,26 +25,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 40,
   },
-  description: {
-    padding: 10,
-    alignItems: 'center',
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    padding: 15,
   },
   imagebox: {
     flex: 1,
   },
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    flex: 1,
+    width: '100%',
   },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    padding: 10,
+  description: {
+    padding: 15,
   },
 });
 
