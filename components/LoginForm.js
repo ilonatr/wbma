@@ -6,17 +6,15 @@ import {AuthContext, AuthProvider} from '../contexts/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import {postLogIn, checkToken} from '../hooks/APIhooks';
 import FormTextInput from './FormTextInput';
-import Login from '../views/Login';
+import handleInputChange from '../hooks/LoginHooks';
+import useLoginForm from '../hooks/LoginHooks';
 
 const LoginForm = ({navigation}) => {
-  const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
+  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
 
   const doLogin = async () => {
     try {
-      const userData = await postLogIn({
-        username: 'ilonatr',
-        password: 'salasana123',
-      });
+      const userData = await postLogIn(inputs);
       console.log('user login success:', userData);
       setIsLoggedIn(true);
       await AsyncStorage.setItem('userToken', userData.token);
@@ -25,6 +23,8 @@ const LoginForm = ({navigation}) => {
     }
     // navigation.navigate('Home');
   };
+
+  const {handleInputChange, inputs} = useLoginForm();
 
   return (
     <View>
