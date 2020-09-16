@@ -1,20 +1,76 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Button, Container, Content, Form, Text} from 'native-base';
 import FormTextInput from '../components/FormTextInput';
-import {Image} from 'react-native';
+import {Image, Platform} from 'react-native';
 import useUploadForm from '../hooks/UploadHooks';
-
+import * as ImagePicker from 'expo-image-picker';
+// import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 
 const Upload = ({navigation}) => {
+  const [image, setImage] = useState(null);
+
+  const doUpload = () => {
+    const formData = new FormData(); // add textforms to formData
+    formData.append('title', inputs.title);
+    formData.append('description', inputs.description);
+    // add file to formData
+    const filename = image.split('/').pop();
+    const match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+    if (type === 'image/jpg') type = 'image/jpeg';
+
+    console.log('Upload', FormData);
+  };
+
+  const pickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImage(result.uri);
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
+  const getPermissionAsync = async () => {
+    if (Platform.OS !== 'web') {
+      const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      console.log('status', status);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
+  };
+
+  useEffect(() => {
+    getPermissionAsync();
+  }, []);
+
+
   const {
-    handleInputChange, uploadErrors} = useUploadForm();
+    handleInputChange,
+    uploadErrors,
+    inputs,
+  } = useUploadForm();
 
 
   return (
     <Container>
       <Content padder>
-        <Image />
+        {image &&
+          <Image
+            source={{uri: image}}
+            style={{height: 400, width: null, flex: 1}} />}
         <Form>
           <FormTextInput
             autoCapitalize="none"
@@ -29,10 +85,10 @@ const Upload = ({navigation}) => {
             error={uploadErrors.description}
           />
         </Form>
-        <Button block>
+        <Button block onPress={pickImage}>
           <Text>Choose file</Text>
         </Button>
-        <Button block>
+        <Button block onPress={doUpload}>
           <Text>Upload</Text>
         </Button>
       </Content>
@@ -40,10 +96,8 @@ const Upload = ({navigation}) => {
   );
 };
 
-
 Upload.propTypes = {
   navigation: PropTypes.object,
 };
-
 
 export default Upload;
