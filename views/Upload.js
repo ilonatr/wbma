@@ -5,23 +5,31 @@ import FormTextInput from '../components/FormTextInput';
 import {Image, Platform} from 'react-native';
 import useUploadForm from '../hooks/UploadHooks';
 import * as ImagePicker from 'expo-image-picker';
-// import Constants from 'expo-constants';
+// eslint-disable-next-line no-unused-vars
+import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import {upload} from '../hooks/APIhooks';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(null);
 
-  const doUpload = () => {
-    const formData = new FormData(); // add textforms to formData
+  const doUpload = async () => {
+    const formData = new FormData();
+    // add textform to formData
     formData.append('title', inputs.title);
     formData.append('description', inputs.description);
+
     // add file to formData
     const filename = image.split('/').pop();
     const match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
     if (type === 'image/jpg') type = 'image/jpeg';
-
-    console.log('Upload', FormData);
+    formData.append('file', {uri: image, name: filename, type});
+    const userToken = await AsyncStorage.getItem('userToken');
+    const resp = await upload(formData, userToken);
+    console.log('Upload', resp);
   };
 
   const pickImage = async () => {
@@ -70,7 +78,9 @@ const Upload = ({navigation}) => {
         {image &&
           <Image
             source={{uri: image}}
-            style={{height: 400, width: null, flex: 1}} />}
+            style={{height: 400, width: null, flex: 1}}
+          />
+        }
         <Form>
           <FormTextInput
             autoCapitalize="none"
@@ -96,8 +106,10 @@ const Upload = ({navigation}) => {
   );
 };
 
+
 Upload.propTypes = {
   navigation: PropTypes.object,
 };
+
 
 export default Upload;
