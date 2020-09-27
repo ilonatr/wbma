@@ -6,6 +6,7 @@ import {
   CardItem,
   Left,
   Icon,
+  // eslint-disable-next-line no-unused-vars
   Title,
   Text,
   Content,
@@ -24,7 +25,7 @@ const Single = ({route}) => {
           <CardItem>
             <Left>
               <Icon name={'image'} />
-              <Title>{file.title}</Title>
+              <Text>{file.title}</Text>
             </Left>
           </CardItem>
           <CardItem cardBody>
